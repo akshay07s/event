@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Event{% endblock title %}
+{% block body %}
+{% load static %}
+<div class='main-box'>
+<div class='container '>
+    <form action="/event/" method='post' enctype="multipart/form-data">
+                {% csrf_token %}
+    <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">@</span>
+    <input type="text" name="event_name" class="form-control" placeholder="Event name" aria-describedby="basic-addon1" required>
+    </div>
+
+    <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon2">&nbsp;<i class="fa fa-info" aria-hidden="true"></i>&nbsp;</span>
+    <input type="text" name="data" placeholder="Information" class="form-control"  aria-describedby="basic-addon2" required>
+    </div>
+
+    <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon3"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+    <input type="datetime-local" name="time" class="form-control" aria-describedby="basic-addon3" required>
+    </div>
+
+    <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon3"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+    <input type="text" class="form-control" name="location"  placeholder="Location" aria-describedby="basic-addon3" required>
+    </div>
+    <div class="input-group">
+    <span class="input-group-text" id="basic-addon3"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+    <input type="file" class="form-control" name="image" accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required>
+    </div>
+    <input class="btn btn-outline-success mt-2" type="submit" value="Submit">
+    </form>
+</div>
+</div>
+{% endblock body %} 

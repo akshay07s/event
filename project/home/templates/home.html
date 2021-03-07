@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}home{% endblock title %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<div class="main-home">
+    <div class='container'>
+    {% for item in events %}
+    
+        <div class="card mb-3" >
+        
+    <div class="main-card">
+        <div class="row g-0">
+            <div class="col-md-4">
+            <img src="{{ item.image.url }}" alt="img" class='image-event'>
+            </div>
+            <div class="col-md-8">
+            <div class="card-body">
+            <a  {% if item.like is True %} style="color:rgb(255, 74, 74);" {% endif %} onClick = "like({{ item.event_id }});" id="heart-color-{{ item.event_id }}">
+            <i class="fa fa-heart fa-2x" aria-hidden="true" ></i>
+            </a>
+                <h5 class="card-title">{{ item.event_name }}</h5>
+                <p class="card-text">{{ item.data }}</p>
+                <p class="card-text">{{ item.time }}</p>
+                <p class="card-text"><small class="text-muted">{{ item.location }}</small></p>
+            </div>        
+            </div>
+        </div>
+        
+    
+    </div>
+    
+    </div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <!-- when user is not login -->
+</div>
+{% endif %}
+<script>
+function like(id){
+    console.log("like function called", id);
+    $.ajax({
+        url: `/like/${id}/`,
+        type: 'get',
+        data: {},
+        encode: true
+        }).done(function (response){
+            response = JSON.parse(response);
+            if(response["response"] == true){
+                $(`#heart-color-${id}`).css("color", "red");
+            }else{
+                $(`#heart-color-${id}`).css("color", "rgb(207, 207, 207)");
+            }
+        })
+}
+</script>
+{% endblock body %}
